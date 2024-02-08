@@ -7,7 +7,18 @@ export const usersRoutes = async(app: FastifyInstance) => {
     app.get('/', async () => {
         const users = await knex("users").select("*")
     
-        return users
+        return { users }
+    })
+
+    app.get('/:id', async (request) => {
+        const getUserParams = z.object({
+            id: z.string().uuid()
+        })
+        const { id } = getUserParams.parse(request.params)
+
+        const user = await knex("users").where({ id }).first()
+    
+        return { user }
     })
 
     app.post('/', async (request, reply) => {
