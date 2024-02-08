@@ -1,13 +1,9 @@
 import fastify from "fastify";
-import {knex} from "./database";
+import { usersRoutes } from "./routes/users";
 
 const app = fastify()
 
-app.get('/', async () => {
-    const user = await knex("users").select("*")
-
-    return user
-})
+app.register(usersRoutes)
 
 app.listen({
     port: 3333,
