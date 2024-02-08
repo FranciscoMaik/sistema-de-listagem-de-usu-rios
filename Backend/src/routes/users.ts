@@ -27,9 +27,43 @@ export const usersRoutes = async(app: FastifyInstance) => {
         })
         const { id } = getUserParams.parse(request.params)
 
-        const user = await knex("users").delete().where({ id })
+        const user = await knex("users").where({ id }).delete()
     
         return reply.status(200).send()
+    })
+
+    app.patch('/:id', async (request, reply) => {
+        const getUserParams = z.object({
+            id: z.string().uuid()
+        })
+        const { id } = getUserParams.parse(request.params)
+
+        const _updateUserBody = z.object({
+            name: z.string().nullish(),
+            email: z.string().email().nullish(),
+            phone: z.string().min(10).max(11).nullish(),
+            age: z.number().min(1).nullish()
+        })
+
+        
+        const updateUserBody = _updateUserBody.safeParse(request.body)
+        
+        if(!updateUserBody.success) {
+            return reply.status(400).send()
+        }
+
+        const user = await knex("users").where({ id }).first()
+
+        const { age, email, name, phone } = updateUserBody.data
+
+        await knex("users").where({ id }).update({
+            name: name ?? user?.name,
+            email: email ?? user?.email,
+            phone: phone ?? user?.phone,
+            age: age ?? user?.age,
+        })
+
+        return reply.status(200).send() 
     })
 
     app.post('/', async (request, reply) => {
