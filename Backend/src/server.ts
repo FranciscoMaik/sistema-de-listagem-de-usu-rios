@@ -1,9 +1,12 @@
 import fastify from "fastify";
+import {knex} from "./database";
 
 const app = fastify()
 
 app.get('/', async () => {
-    return 'Hello World'
+    const user = await knex("users").select("*")
+
+    return user
 })
 
 app.listen({
