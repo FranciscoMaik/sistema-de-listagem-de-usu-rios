@@ -10,8 +10,8 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-      background: ${props => props.theme.colors.black};
-      color: ${props => props.theme.colors.white};
+      background: ${props => props.theme.colors.ice};
+      color: ${props => props.theme.colors.black};
       width: 100vw;
       overflow-x: hidden;
     }
