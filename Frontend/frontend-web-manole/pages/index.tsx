@@ -7,10 +7,12 @@ import { LuInfo } from "react-icons/lu";
 import * as S from '../modules/home/styles/stylesHome'
 import { useTheme } from 'styled-components';
 import { ModalUserInfo } from '../modules/home/components/ModalUserInfo';
+import { ModalAddUser } from '../modules/home/components/ModalAddUser';
 export default function Home() {
   const {colors} = useTheme()
   const [users, setUsers] = useState<IUser[]>([])
   const [showModalUser, setShowModalUser] = useState(false)
+  const [showModalAddUser, setShowModalAddUser] = useState(false)
   const [id, setId] = useState("")
 
   const searchUsers = async () => {
@@ -45,7 +47,7 @@ export default function Home() {
       <S.Container>
         <div className="header">
           <h2>Lista de clientes</h2>
-          <S.ButtonAdd>
+          <S.ButtonAdd onClick={() => setShowModalAddUser(prev => !prev)}>
             Adicionar
           </S.ButtonAdd>
         </div>
@@ -70,6 +72,7 @@ export default function Home() {
       </S.Container>
 
       <ModalUserInfo id={id} isOpen={showModalUser} onClose={() => setShowModalUser(prev => !prev)}/>
+      <ModalAddUser isOpen={showModalAddUser} onClose={() => setShowModalAddUser(prev => !prev)} updateList={searchUsers}/>
     </>
   )
 }

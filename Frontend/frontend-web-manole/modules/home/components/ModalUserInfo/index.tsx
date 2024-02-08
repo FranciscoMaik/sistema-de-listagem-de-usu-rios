@@ -13,7 +13,7 @@ interface ModalProps {
 export const ModalUserInfo: React.FC<ModalProps> = ({ isOpen, onClose, children, id }) => {
     const [user, setUser] = useState<IUser | null>(null)
     
-    const searchInfoUser = async() => {
+    const searchInfoUser = useCallback(async() => {
       try {
         const { data } = await api.get(`/users/${id}`)
         setUser(data.user)
@@ -21,7 +21,7 @@ export const ModalUserInfo: React.FC<ModalProps> = ({ isOpen, onClose, children,
       } catch (error) {
         console.error(error);
       }
-    }
+    }, [id])
     
     useEffect(() => {
       if(!id) return
