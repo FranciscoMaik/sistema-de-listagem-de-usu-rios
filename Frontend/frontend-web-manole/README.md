@@ -25,6 +25,14 @@ Um sistema para manipulação de usuários
 
 ### Como rodar a aplicação
 
+1. Instalando dependencias
+
+```
+npm i
+```
+
+2. Rodando o projeto
+
 ```
 npm run dev
 ```

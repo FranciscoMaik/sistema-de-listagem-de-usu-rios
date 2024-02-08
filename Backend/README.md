@@ -26,13 +26,19 @@ Um sistema para manipulação de usuários
 
 ### Como rodar a aplicação
 
-1. Para criar as tablas no banco
+1. Instalando dependencias
+
+```
+npm i
+```
+
+2. Para criar as tablas no banco
 
 ```
 npm run knex -- migrate:latest
 ```
 
-2. Para deixar a aplicação funcionando
+3. Para deixar a aplicação funcionando
 
 ```
 npm run dev
