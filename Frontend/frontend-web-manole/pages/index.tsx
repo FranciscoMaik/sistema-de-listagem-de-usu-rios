@@ -61,6 +61,11 @@ export default function Home() {
         </div>
         {users.map((user) => (
           <S.CardUser key={user.id}>
+             <div className="icons">
+              <FaRegTrashAlt color={colors.red200} size={17} onClick={() => deleteUser(user.id)}/>
+              <LuInfo size={18} color={colors.green700} onClick={() => handleShowModalUser(user.id)}/>
+              <FaRegEdit color={colors.blue200} size={18} onClick={() => handleShowModalEditUser(user)}/>
+            </div>
             <div>
               <S.InfoUser>
                 <strong>Nome: </strong>
@@ -71,11 +76,7 @@ export default function Home() {
                 <p>{user.email}</p>
               </S.InfoUser>
             </div>
-            <div className="icons">
-              <FaRegTrashAlt color={colors.red200} size={17} onClick={() => deleteUser(user.id)}/>
-              <LuInfo size={18} color={colors.green700} onClick={() => handleShowModalUser(user.id)}/>
-              <FaRegEdit color={colors.blue200} size={18} onClick={() => handleShowModalEditUser(user)}/>
-            </div>
+           
           </S.CardUser>
         ))}
       </S.Container>

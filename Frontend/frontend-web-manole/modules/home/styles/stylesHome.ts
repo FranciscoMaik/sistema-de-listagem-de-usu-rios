@@ -5,7 +5,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 80px;
+    padding: 40px;
     
     .header {
         width: 100%;
@@ -14,6 +14,7 @@ export const Container = styled.div`
         align-items: center;
         justify-content: space-between;
         margin-bottom: 24px;
+        gap: 12px
     }
     `;
 
@@ -26,9 +27,10 @@ export const CardUser = styled.div`
     margin-bottom: 12px;
     box-shadow: 10px 10px 40px 0px rgba(0,0,0,0.14);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
     
     > div {
         display: flex;
@@ -37,13 +39,24 @@ export const CardUser = styled.div`
     }
 
     .icons {
+        width: 100%;
         display: flex;
         flex-direction: row;
         gap: 18px;
+        justify-content: flex-end;
 
         > svg {
             cursor: pointer;
         }
+    }
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row-reverse;
+
+        .icons {
+            width: 20%;
+        }
+        
     }
 `
 
