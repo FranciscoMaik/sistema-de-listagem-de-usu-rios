@@ -3,7 +3,9 @@ import { usersRoutes } from "./routes/users";
 
 const app = fastify()
 
-app.register(usersRoutes)
+app.register(usersRoutes, {
+    prefix: "users"
+})
 
 app.listen({
     port: 3333,
