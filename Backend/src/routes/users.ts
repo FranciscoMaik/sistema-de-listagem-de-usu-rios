@@ -21,6 +21,17 @@ export const usersRoutes = async(app: FastifyInstance) => {
         return { user }
     })
 
+    app.delete('/:id', async (request, reply) => {
+        const getUserParams = z.object({
+            id: z.string().uuid()
+        })
+        const { id } = getUserParams.parse(request.params)
+
+        const user = await knex("users").delete().where({ id })
+    
+        return reply.status(200).send()
+    })
+
     app.post('/', async (request, reply) => {
         const createUserBody = z.object({
             name: z.string(),
