@@ -2,81 +2,45 @@ import React from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useUsers } from "../../modules/home/hooks/useUsers";
 
-
 import { Feather } from '@expo/vector-icons';
+
+import * as S from "../../modules/home/styles/styles"
 
 const SIZE_ICON = 18
 
 export const Home: React.FC = () => {
   const { users } = useUsers();
+
+
   return (
-    <SafeAreaView style={styles.container}>
+    <S.Container>
       <FlatList
         data={users}
         renderItem={({ item }) => (
-          <View style={styles.containerCards}>
-            <View style={styles.card}>
+          <S.Cards>
+            <View>
               <Text>{item.name}</Text>
               <Text>{item.email}</Text>
             </View>
 
-            <View style={styles.icons}>
+            <S.Icons>
               <Feather name="trash-2" size={SIZE_ICON} color="red" />
               <Feather name="info" size={SIZE_ICON} color="green" />
               <Feather name="edit" size={SIZE_ICON} color="blue" />
-            </View>
-          </View>
+            </S.Icons>
+          </S.Cards>
         )}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={() => (
-          <View style={styles.header}>
-            <Text style={styles.title}>Lista de Usuários</Text>
-            <TouchableOpacity style={styles.button}>
+          <S.Header>
+            <S.Title>Lista de Usuários</S.Title>
+            <S.Button>
               <Text>Criar usuário</Text>
-            </TouchableOpacity>
-          </View>
+            </S.Button>
+          </S.Header>
         )}
       />
-    </SafeAreaView>
+    </S.Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 60,
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 16
-  },
-  button: {
-    backgroundColor: "#2196F3",
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    borderRadius: 4,
-  },
-  containerCards: {
-    marginBottom: 12,
-    borderStyle: "solid",
-    borderWidth: 1,
-    padding: 8,
-    borderRadius: 4,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    borderColor: "#00ff00"
-  },
-  card: {
-  },
-  icons: {
-    flexDirection: "row",
-    gap: 6
-  }
-});
