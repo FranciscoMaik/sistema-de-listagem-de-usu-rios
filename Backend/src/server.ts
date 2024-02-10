@@ -14,7 +14,7 @@ app.register(usersRoutes, {
 })
 
 app.listen({
-    port: 5555,
+    port: 3333,
 }).then(() => {
     console.log("HTTP Server on listen port 5555")
 })
