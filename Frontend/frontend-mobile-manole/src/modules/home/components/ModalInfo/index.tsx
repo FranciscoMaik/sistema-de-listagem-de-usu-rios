@@ -34,13 +34,30 @@ export const ModalInfo: React.FC<ModalInfoProps> = ({
                 <S.Content>
                     <S.Header>
                         <View />
-                        <Text>{title}</Text>
+                        <S.Title>{title}</S.Title>
                         <S.ClosedModal onPress={onClosed}>
                             <Feather name="x" size={24} color={colors.black} />
                         </S.ClosedModal>
                     </S.Header>
                 </S.Content>
-                <Text>{user?.name}</Text>
+                <S.ContentInfo>
+                    <S.Infos>
+                        <S.Strong>Nome:</S.Strong>
+                        <S.Paragraph>{user?.name}</S.Paragraph>
+                    </S.Infos>
+                    <S.Infos>
+                        <S.Strong>E-mail:</S.Strong>
+                        <S.Paragraph>{user?.email}</S.Paragraph>
+                    </S.Infos>
+                    <S.Infos>
+                        <S.Strong>Telefone:</S.Strong>
+                        <S.Paragraph>{user?.phone}</S.Paragraph>
+                    </S.Infos>
+                    <S.Infos>
+                        <S.Strong>Idade:</S.Strong>
+                        <S.Paragraph>{user?.age}</S.Paragraph>
+                    </S.Infos>
+                </S.ContentInfo>
                 {children}
             </S.Modal>
         </S.Container>
