@@ -1,28 +1,23 @@
 import React, { useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useUsers } from "../../modules/home/hooks/useUsers";
+import { useUserContext } from "../../modules/home/hooks/useUserContext";
 
 import { ModalInfo } from "../../modules/home/components"
 
 import { Feather } from '@expo/vector-icons';
 
 import * as S from "../../modules/home/styles/styles"
-import { IUser } from "../../modules/home/types/IUser";
 
 const SIZE_ICON = 18
 
 export const Home: React.FC = () => {
-  const { users } = useUsers();
+  const { users, setIdUser } = useUserContext();
 
-  const [userUnique, setUserUnique] = useState<IUser | null>(null)
   const [showModalInfo, setShowModalInfo] = useState(false)
 
   const handleModalInfo = (id: string) => {
-    const findUser = users.find(user => user.id === id)
-    if (findUser) {
-      setUserUnique(findUser)
-      setShowModalInfo(true)
-    }
+    setIdUser(id)
+    setShowModalInfo(true)
   }
 
 
@@ -61,7 +56,6 @@ export const Home: React.FC = () => {
         visible={showModalInfo}
         onClosed={() => setShowModalInfo(prev => !prev)}
         title="Usuário"
-        user={userUnique}
       />
     </>
   );

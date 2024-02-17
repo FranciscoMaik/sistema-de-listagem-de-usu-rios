@@ -5,12 +5,15 @@ import { ThemeProvider } from "styled-components/native"
 import { theme } from "./styles/theme"
 
 import { Home } from './src/screens/Home';
+import { UserProvider } from './src/modules/home/context/UserAuth';
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style="auto" />
-      <Home />
+      <UserProvider>
+        <StatusBar style="auto" />
+        <Home />
+      </UserProvider>
     </ThemeProvider>
   );
 }
