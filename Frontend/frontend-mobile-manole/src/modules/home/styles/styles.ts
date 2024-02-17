@@ -42,3 +42,8 @@ export const Icons = styled.View`
     flex-direction: row;
     gap: 6px;
 `
+
+export const Name = styled.Text`
+    text-transform: capitalize;
+    font-weight: 600;
+`

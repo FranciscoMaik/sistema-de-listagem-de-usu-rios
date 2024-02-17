@@ -7,10 +7,12 @@ import { ModalInfo, ModalCreateUser } from "../../modules/home/components"
 import { Feather } from '@expo/vector-icons';
 
 import * as S from "../../modules/home/styles/styles"
+import { useTheme } from "styled-components/native";
 
 const SIZE_ICON = 18
 
 export const Home: React.FC = () => {
+  const { colors } = useTheme()
   const { users, setIdUser, removeClient } = useUserContext();
 
   const [showModalInfo, setShowModalInfo] = useState(false)
@@ -30,14 +32,14 @@ export const Home: React.FC = () => {
           renderItem={({ item }) => (
             <S.Cards>
               <View>
-                <Text>{item.name}</Text>
+                <S.Name>{item.name}</S.Name>
                 <Text>{item.email}</Text>
               </View>
 
               <S.Icons>
-                <Feather name="trash-2" size={SIZE_ICON} color="red" onPress={() => removeClient(item.id)} />
-                <Feather name="info" size={SIZE_ICON} color="green" onPress={() => handleModalInfo(item.id)} />
-                <Feather name="edit" size={SIZE_ICON} color="blue" />
+                <Feather name="trash-2" size={SIZE_ICON} color={colors.red200} onPress={() => removeClient(item.id)} />
+                <Feather name="info" size={SIZE_ICON} color={colors.green700} onPress={() => handleModalInfo(item.id)} />
+                <Feather name="edit" size={SIZE_ICON} color={colors.blue200} />
               </S.Icons>
             </S.Cards>
           )}
