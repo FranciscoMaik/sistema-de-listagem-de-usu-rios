@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useUserContext } from "../../modules/home/hooks/useUserContext";
 
-import { ModalInfo } from "../../modules/home/components"
+import { ModalInfo, ModalCreateUser } from "../../modules/home/components"
 
 import { Feather } from '@expo/vector-icons';
 
@@ -14,6 +14,7 @@ export const Home: React.FC = () => {
   const { users, setIdUser, removeClient } = useUserContext();
 
   const [showModalInfo, setShowModalInfo] = useState(false)
+  const [showModalCreate, setShowModalCreate] = useState(false)
 
   const handleModalInfo = (id: string) => {
     setIdUser(id)
@@ -44,7 +45,7 @@ export const Home: React.FC = () => {
           ListHeaderComponent={() => (
             <S.Header>
               <S.Title>Lista de Usuários</S.Title>
-              <S.Button>
+              <S.Button onPress={() => setShowModalCreate(prev => !prev)}>
                 <Text>Criar usuário</Text>
               </S.Button>
             </S.Header>
@@ -56,6 +57,12 @@ export const Home: React.FC = () => {
         visible={showModalInfo}
         onClosed={() => setShowModalInfo(prev => !prev)}
         title="Usuário"
+      />
+
+      <ModalCreateUser
+        visible={showModalCreate}
+        onClosed={() => setShowModalCreate(prev => !prev)}
+        title="Criar Usuário"
       />
     </>
   );

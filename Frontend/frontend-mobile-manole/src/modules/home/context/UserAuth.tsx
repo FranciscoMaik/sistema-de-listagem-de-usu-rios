@@ -18,6 +18,7 @@ export interface UserContextStateProps {
     setIdUser: React.Dispatch<React.SetStateAction<string>>
     userUnique?: IUser
     removeClient: (id: string) => void
+    createUser: (newUser: Partial<IUser>) => Promise<void>
 }
 
 const UserContext = createContext({} as UserContextStateProps)
@@ -50,8 +51,19 @@ const UserProvider: React.FC<UserContextProps> = ({ children }) => {
         try {
             await api.delete(`/users/${id}`)
             setUsers(prev => prev.filter(user => user.id !== id))
+            Alert.alert("Exclusão", "Cliente removido com sucesso!")
         } catch {
             Alert.alert("Error", "Não foi possível deletar o cliente!")
+        }
+    }
+
+    const createUser = async (newUser: Partial<IUser>) => {
+        try {
+            await api.post(`/users`, newUser)
+            await searchUsers()
+            Alert.alert("Adição", "Cliente criado com sucesso!")
+        } catch (error) {
+            Alert.alert("Error", `Não foi possível criar o cliente! ${error}`)
         }
     }
 
@@ -71,7 +83,8 @@ const UserProvider: React.FC<UserContextProps> = ({ children }) => {
                 userId: idUser,
                 setIdUser,
                 userUnique,
-                removeClient
+                removeClient,
+                createUser
             }}>
             {children}
         </UserContext.Provider>
