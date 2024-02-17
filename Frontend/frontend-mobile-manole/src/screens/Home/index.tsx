@@ -11,7 +11,7 @@ import * as S from "../../modules/home/styles/styles"
 const SIZE_ICON = 18
 
 export const Home: React.FC = () => {
-  const { users, setIdUser } = useUserContext();
+  const { users, setIdUser, removeClient } = useUserContext();
 
   const [showModalInfo, setShowModalInfo] = useState(false)
 
@@ -34,7 +34,7 @@ export const Home: React.FC = () => {
               </View>
 
               <S.Icons>
-                <Feather name="trash-2" size={SIZE_ICON} color="red" />
+                <Feather name="trash-2" size={SIZE_ICON} color="red" onPress={() => removeClient(item.id)} />
                 <Feather name="info" size={SIZE_ICON} color="green" onPress={() => handleModalInfo(item.id)} />
                 <Feather name="edit" size={SIZE_ICON} color="blue" />
               </S.Icons>
