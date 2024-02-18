@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useUserContext } from "../../modules/home/hooks/useUserContext";
 
-import { ModalInfo, ModalCreateUser } from "../../modules/home/components"
+import { ModalInfo, ModalCreateUser, ModalEditUser } from "../../modules/home/components"
 
 import { Feather } from '@expo/vector-icons';
 
 import * as S from "../../modules/home/styles/styles"
 import { useTheme } from "styled-components/native";
+import { IUser } from "../../modules/home/types/IUser";
 
 const SIZE_ICON = 18
 
@@ -15,12 +16,24 @@ export const Home: React.FC = () => {
   const { colors } = useTheme()
   const { users, setIdUser, removeClient } = useUserContext();
 
+  const [userToEdit, setUserToEdit] = useState<IUser>()
+
   const [showModalInfo, setShowModalInfo] = useState(false)
   const [showModalCreate, setShowModalCreate] = useState(false)
+  const [showModalEdit, setShowModalEdit] = useState(false)
 
   const handleModalInfo = (id: string) => {
     setIdUser(id)
     setShowModalInfo(true)
+  }
+
+  const handleModalEdit = (id: string) => {
+    const findUser = users.find(user => user.id === id)
+
+    if (findUser) {
+      setUserToEdit(findUser)
+      setShowModalEdit(true)
+    }
   }
 
 
@@ -39,7 +52,7 @@ export const Home: React.FC = () => {
               <S.Icons>
                 <Feather name="trash-2" size={SIZE_ICON} color={colors.red200} onPress={() => removeClient(item.id)} />
                 <Feather name="info" size={SIZE_ICON} color={colors.green700} onPress={() => handleModalInfo(item.id)} />
-                <Feather name="edit" size={SIZE_ICON} color={colors.blue200} />
+                <Feather name="edit" size={SIZE_ICON} color={colors.blue200} onPress={() => handleModalEdit(item.id)} />
               </S.Icons>
             </S.Cards>
           )}
@@ -65,6 +78,13 @@ export const Home: React.FC = () => {
         visible={showModalCreate}
         onClosed={() => setShowModalCreate(prev => !prev)}
         title="Criar Usuário"
+      />
+
+      <ModalEditUser
+        visible={showModalEdit}
+        onClosed={() => setShowModalEdit(prev => !prev)}
+        title="Editar Usuário"
+        editUser={userToEdit}
       />
     </>
   );

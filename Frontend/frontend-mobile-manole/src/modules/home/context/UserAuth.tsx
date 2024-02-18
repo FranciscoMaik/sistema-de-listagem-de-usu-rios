@@ -19,6 +19,7 @@ export interface UserContextStateProps {
     userUnique?: IUser
     removeClient: (id: string) => void
     createUser: (newUser: Partial<IUser>) => Promise<void>
+    updateUser: (newUser: IUser) => Promise<void>
 }
 
 const UserContext = createContext({} as UserContextStateProps)
@@ -62,8 +63,25 @@ const UserProvider: React.FC<UserContextProps> = ({ children }) => {
             await api.post(`/users`, newUser)
             await searchUsers()
             Alert.alert("Adição", "Cliente criado com sucesso!")
+        } catch {
+            Alert.alert("Error", `Não foi possível criar o cliente!`)
+        }
+    }
+
+    const updateUser = async (newUser: IUser) => {
+        const userChange = {
+            name: newUser.name,
+            email: newUser.email,
+            phone: newUser.phone,
+            age: newUser.age,
+        }
+
+        try {
+            await api.patch(`/users/${newUser.id}`, userChange)
+            await searchUsers()
+            Alert.alert("Edição", "Cliente editado com sucesso!")
         } catch (error) {
-            Alert.alert("Error", `Não foi possível criar o cliente! ${error}`)
+            Alert.alert("Error", `Não foi possível editar o cliente! ${error}`)
         }
     }
 
@@ -84,7 +102,8 @@ const UserProvider: React.FC<UserContextProps> = ({ children }) => {
                 setIdUser,
                 userUnique,
                 removeClient,
-                createUser
+                createUser,
+                updateUser
             }}>
             {children}
         </UserContext.Provider>
