@@ -1,0 +1,36 @@
+{
+    "extends": [
+      "@rocketseat/eslint-config/react"
+    ],
+    "plugins": [
+      "eslint-plugin-import-helpers"
+  ],
+  "rules": {
+      "@typescript-eslint/no-empty-interface": "off",
+      "camelcase": "off",
+      "no-console": "warn",
+      "import-helpers/order-imports": [
+          "warn",
+          { // example configuration
+              "newlinesBetween": "always",
+              "groups": [
+                  "/^react/",
+                  "module",
+                  "/^@commons/",
+                  "/^@services/",
+                  "/^@modules/",
+                  [
+                      "parent",
+                      "sibling",
+                      "index"
+                  ],
+                  "/^./styles/"
+              ],
+              "alphabetize": {
+                  "order": "asc",
+                  "ignoreCase": true
+              }
+          }
+      ]
+  }
+}
